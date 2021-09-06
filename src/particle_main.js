@@ -10,10 +10,11 @@ var togglefire = false;
 var hue = 0; // color test
 var counter = 0;
 
-const SPEED = 2;
-const SIZE = 2;
-const MAXLIFE = 2000;
-const SHRINK = 1; // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
+const SPEED = 1;          // particle speed
+const SIZE = 2;           // particle size
+const MAXLIFE = 2000;     // particle max life
+const SHRINK = 1;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
+const ACCEL = 1;          // particle acceleration curve.
 
 // get RandomInt function
 function getRandomInt(max) {
@@ -74,6 +75,10 @@ const particle = {
     this.data.forEach( part =>  {
 
       const distance = getDistanceFrom(part.x, part.y, emitterX, emitterY);
+
+      part.dx *= ACCEL;
+      part.dy *= ACCEL;
+
       part.x += part.dx;
       part.y += part.dy;
 
