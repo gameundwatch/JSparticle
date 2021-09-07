@@ -11,7 +11,9 @@ const shape = {
 
   // COLOR
   body_color: null,
+  body_alpha: null,
   line_color: null,
+  line_alpha: null,
 
   // SHADOW
   shadow_x: null,
@@ -19,14 +21,16 @@ const shape = {
   shadow_blur: null,
   shadow_color: null,
 
-  setShape: function(type, inset, rotate, spin, bodyColor, lineColor, shadowX, shadowY, shadowBlur, shadowColor) {
+  setShape: function(type, inset, rotate, spin, bodyColor, bodyAlpha, lineColor, lineAlpha, shadowX, shadowY, shadowBlur, shadowColor) {
     this.type   = type;
     this.inset  = inset;
     this.rotate = rotate;
     this.spin   = spin;
 
     this.body_color = bodyColor;
+    this.body_alpha = bodyAlpha;
     this.line_color = lineColor;
+    this.line_alpha = lineAlpha;
 
     this.shadow_x     = shadowX;
     this.shadow_y     = shadowY;
@@ -57,15 +61,20 @@ const shape = {
     ctx.restore();
     ctx.closePath();
 
-    ctx.strokeStyle = this.line_color;
-    ctx.fillStyle = this.body_color;
-    
+    // shadowing
     ctx.shadowOffSetX = this.shadow_x;
     ctx.shadowOffSetY = this.shadow_y;
     ctx.shadowBlur    = this.shadow_blur;
     ctx.shadowColor   = this.shadow_color;
 
+    // line drawing
+    ctx.globalAlpha = this.line_alpha;
+    ctx.strokeStyle = this.line_color;
     ctx.stroke();
+
+    // body drawing
+    ctx.globalAlpha = this.body_alpha;
+    ctx.fillStyle = this.body_color;
     ctx.fill();
 
   },
