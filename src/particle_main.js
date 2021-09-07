@@ -10,10 +10,14 @@ var togglefire = false;
 var counter = 0;
 
 const SPEED = 1;          // particle speed
-const SIZE = 10;           // particle size
+const SIZE = 10;          // particle size
 const MAXLIFE = 2000;     // particle max life
 const SHRINK = 1;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
 const ACCEL = 1;          // particle acceleration curve.
+
+//============================================
+// SHAPE SETTINGS
+//============================================
 
 const SHAPE_TYPE = 2;               // shape type : 1 is circle, 2 is line, 3 or higher is polygon. 
 const SHAPE_INSET = 1;              // inside verticle to make star shape. 1 is flat.
@@ -26,6 +30,10 @@ const SHAPE_SHADOW_OFFSET_X = 0;
 const SHAPE_SHADOW_OFFSET_Y = 0;
 const SHAPE_SHADOW_BLUR = 5;
 const SHAPE_SHADOW_COLOR = 'black';
+
+//============================================
+// MOTION SETTINGS
+//============================================
 
 
 
