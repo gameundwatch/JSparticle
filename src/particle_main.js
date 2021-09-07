@@ -23,6 +23,7 @@ const SHAPE_TYPE = 2;               // shape type : 1 is circle, 2 is line, 3 or
 const SHAPE_INSET = 1;              // inside verticle to make star shape. 1 is flat.
 const SHAPE_DEFAULT_ROTATE = 90;    // default shape degree
 const SHAPE_SPIN_SPEED = 4;         // negative value ... clockwise rotation.
+
 const SHAPE_BODY_COLOR = 'rgba(0,0,0,0)';
 const SHAPE_LINE_COLOR = 'rgba(255,0,0,255)';
 
@@ -37,84 +38,18 @@ const SHAPE_SHADOW_COLOR = 'black';
 
 
 
-// get RandomInt function
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
-// get Distance
-
-function getDistanceFrom(x,y,fromX,fromY) { 
-    return Math.sqrt( Math.pow(x-fromX, 2) + Math.pow(y-fromY, 2) );
-}
-
 //============================================
-// PARTICLE
+// LOAD PARTICLE SYSTEM
 //============================================
 
-const particle = {
-  
-  x: null,
-  y: null,
-  dx: null, // direction X
-  dy: null, // direction Y
-  size: null,
-  shape: shape,
-  life: null,
-  data:[],
-
-  // DRAW
-  draw: function() {
-    this.data.forEach( part =>  {
-      if (part.life >= 0){
-        part.shape.drawShape(part.x, part.y, part.size);
-      }
-    })
-    this.shape.spinningShape();
-  },
-
-  // GENERATE
-  generate: function(posx, posy, speed, size, life) {
-    this.data.push({
-      x: posx,
-      y: posy,
-      dx: speed*( Math.cos( (getRandomInt(360)*Math.PI) /180 )),
-      dy: speed*( Math.sin( (getRandomInt(360)*Math.PI) /180 )),
-      shape: shape, // {type: 1, color:"orange"},
-      size:size,
-      // color:'hsl(' + hue + ',100%,50%)', // color test
-      life:life
-    })
-  },
-
-  // MOVE
-  move: function() {
-    this.data.forEach( part =>  {
-
-      const distance = getDistanceFrom(part.x, part.y, emitterX, emitterY);
-
-      part.dx *= ACCEL;
-      part.dy *= ACCEL;
-      part.x += part.dx;
-      part.y += part.dy;
-
-      // part.size *= part.life/MAXLIFE;
-      part.size *= Math.pow(part.life/MAXLIFE, SHRINK);
-
-    })
-  },
-
-  // ERASE
-  erase: function() {
-    this.data.forEach((part, index) =>  {
-      part.life -= 1;
-      if (part.life <= 0) {
-        this.data.splice(index, 1);
-      }
-    })
-  }
-
+/*
+function loadParticleSystem() {
+  let script = document.createElement('script');
+  script.src = "./src/particle_body.js"
+  document.body.prepend(script);
 }
+loadParticleSystem();
+*/
 
 const init = () => {
 
@@ -133,7 +68,11 @@ const init = () => {
     SHAPE_SHADOW_OFFSET_Y,
     SHAPE_SHADOW_BLUR,
     SHAPE_SHADOW_COLOR
-    );
+  );
+
+  particle.setParticle (
+    SHRINK
+  );
 
 }
 
