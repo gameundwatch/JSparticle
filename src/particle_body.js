@@ -9,6 +9,29 @@ function getDistanceFrom(x,y,fromX,fromY) {
     return Math.sqrt( Math.pow(x-fromX, 2) + Math.pow(y-fromY, 2) );
 }
 
+function normalizedX (x,y) {
+  return x / Math.sqrt( Math.pow(x,2) + Math.pow(y,2) );
+}
+
+function normalizedY (x,y) {
+  return y / Math.sqrt( Math.pow(x,2) + Math.pow(y,2) );
+}
+
+//============================================
+// FORCE
+//============================================
+
+const force = {
+  x: null,
+  y: null,
+  
+  forceDirection: function( degree, power ) {
+    this.x = power * Math.cos( (degree*Math.PI) /180 );
+    this.y = power * Math.sin( (degree*Math.PI) /180 );
+  }
+
+}
+
 //============================================
 // PARTICLE
 //============================================
@@ -16,8 +39,8 @@ const particle = {
   
   x: null,
   y: null,
-  dx: null, // direction X
-  dy: null, // direction Y
+  dx: null,
+  dy: null,
   size: null,
   value: null,
   shrink: null,
@@ -43,7 +66,7 @@ const particle = {
       y: posy,
       dx: speed*( Math.cos( (getRandomInt(360)*Math.PI) /180 )),
       dy: speed*( Math.sin( (getRandomInt(360)*Math.PI) /180 )),
-      shape: shape, // {type: 1, color:"orange"},
+      shape: shape,
       size: size,
       maxlife:life,
       life:life
@@ -56,12 +79,16 @@ const particle = {
 
       const distance = getDistanceFrom(part.x, part.y, emitterX, emitterY);
 
-      // part.dx *= ACCEL;
-      // part.dy *= ACCEL;
+      // part.dx = normalizedX( part.dx + force.x, part.dy + force.y );
+      // part.dy = normalizedY( part.dx + force.x, part.dy + force.y );
+
+      part.dx += force.x;
+      part.dy += force.y;
+
       part.x += part.dx;
       part.y += part.dy;
 
-      // part.size *= part.life/MAXLIFE;
+      // console.log(normalizedY(0+force.x, 1 + force.y));
       part.size *= Math.pow(part.life/part.maxlife, this.shrink);
 
     })

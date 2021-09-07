@@ -9,13 +9,11 @@ var emitterY = null;
 var togglefire = false;
 var counter = 0;
 
-const PART_SPEED = 1;          // particle speed
+const PART_SPEED = 4;          // particle speed
 const PART_MAXVALUE = 200;
-const PART_SIZE = 40;          // particle size
-const PART_LIFE = 200;     // particle max life
-const PART_SHRINK = 0.5;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
-
-const MOTION_ACCEL = 1;          // particle acceleration curve.
+const PART_SIZE = 20;          // particle size
+const PART_LIFE = 2000;     // particle max life
+const PART_SHRINK = 0.2;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
 
 //============================================
 // SHAPE SETTINGS
@@ -26,21 +24,24 @@ const SHAPE_INSET = 1;              // inside verticle to make star shape. 1 is 
 const SHAPE_DEFAULT_ROTATE = 90;    // default shape degree
 const SHAPE_SPIN_SPEED = 4;         // negative value ... clockwise rotation.
 
-const SHAPE_BODY_COLOR = "#AAddff";
+const SHAPE_BODY_COLOR = "#dd4411";
 const SHAPE_BODY_ALPHA = 0.2;
-const SHAPE_LINE_COLOR = "#0077AA";
+const SHAPE_LINE_COLOR = "#8822EE";
 const SHAPE_LINE_ALPHA = 0.8;
 
 const SHAPE_SHADOW_OFFSET_X = 0;
 const SHAPE_SHADOW_OFFSET_Y = 0;
-const SHAPE_SHADOW_BLUR = 5;
-const SHAPE_SHADOW_COLOR = 'black';
+const SHAPE_SHADOW_BLUR = 10;
+const SHAPE_SHADOW_COLOR = "#4400DD";
 
 //============================================
 // MOTION SETTINGS
 //============================================
 
+const MOTION_ACCEL = 1;         // particle acceleration curve.
 
+const MOTION_FORCE_DEG = -90;         //   
+const MOTION_FORCE_POWER = 0.01;
 
 //============================================
 // LOAD PARTICLE SYSTEM
@@ -86,6 +87,8 @@ const init = () => {
     PART_SHRINK
   );
 
+  force.forceDirection ( MOTION_FORCE_DEG, MOTION_FORCE_POWER );
+
 }
 
 //============================================
@@ -103,8 +106,7 @@ const loop = () => {
   particle.erase();
 
   particle.draw();
-
-  console.log(particle.data);
+  // console.log(particle.data);
 
   window.requestAnimationFrame(loop);
 }
