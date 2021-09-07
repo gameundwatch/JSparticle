@@ -9,11 +9,13 @@ var emitterY = null;
 var togglefire = false;
 var counter = 0;
 
-const SPEED = 1;          // particle speed
-const SIZE = 80;          // particle size
-const MAXLIFE = 20;     // particle max life
-const SHRINK = 1;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
-const ACCEL = 1;          // particle acceleration curve.
+const PART_SPEED = 1;          // particle speed
+const PART_MAXVALUE = 200;
+const PART_SIZE = 40;          // particle size
+const PART_LIFE = 200;     // particle max life
+const PART_SHRINK = 0.5;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
+
+const MOTION_ACCEL = 1;          // particle acceleration curve.
 
 //============================================
 // SHAPE SETTINGS
@@ -24,10 +26,10 @@ const SHAPE_INSET = 1;              // inside verticle to make star shape. 1 is 
 const SHAPE_DEFAULT_ROTATE = 90;    // default shape degree
 const SHAPE_SPIN_SPEED = 4;         // negative value ... clockwise rotation.
 
-const SHAPE_BODY_COLOR = "#44ddff";
-const SHAPE_BODY_ALPHA = 0.3;
+const SHAPE_BODY_COLOR = "#AAddff";
+const SHAPE_BODY_ALPHA = 0.2;
 const SHAPE_LINE_COLOR = "#0077AA";
-const SHAPE_LINE_ALPHA = 1;
+const SHAPE_LINE_ALPHA = 0.8;
 
 const SHAPE_SHADOW_OFFSET_X = 0;
 const SHAPE_SHADOW_OFFSET_Y = 0;
@@ -53,6 +55,10 @@ function loadParticleSystem() {
 loadParticleSystem();
 */
 
+//============================================
+// INIT
+//============================================
+
 const init = () => {
 
   emitterX = canvas.width / 2;
@@ -76,16 +82,21 @@ const init = () => {
   );
 
   particle.setParticle (
-    SHRINK
+    PART_MAXVALUE,
+    PART_SHRINK
   );
 
 }
+
+//============================================
+// MAIN LOOP
+//============================================
 
 const loop = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (togglefire) {
-    particle.generate(emitterX, emitterY, SPEED, SIZE, MAXLIFE); 
+    particle.generate(emitterX, emitterY, PART_SPEED, PART_SIZE, PART_LIFE); 
   }
 
   particle.move();
@@ -97,6 +108,8 @@ const loop = () => {
 
   window.requestAnimationFrame(loop);
 }
+
+
 
 init();
 loop();
@@ -113,3 +126,4 @@ document.addEventListener('mousedown', function(e) {
 document.addEventListener('mouseup', function(e) {
   togglefire = false;
 });
+

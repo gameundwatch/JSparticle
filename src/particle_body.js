@@ -19,6 +19,7 @@ const particle = {
   dx: null, // direction X
   dy: null, // direction Y
   size: null,
+  value: null,
   shrink: null,
   shape: shape,
   maxlife: null,
@@ -55,8 +56,8 @@ const particle = {
 
       const distance = getDistanceFrom(part.x, part.y, emitterX, emitterY);
 
-      part.dx *= ACCEL;
-      part.dy *= ACCEL;
+      // part.dx *= ACCEL;
+      // part.dy *= ACCEL;
       part.x += part.dx;
       part.y += part.dy;
 
@@ -74,10 +75,16 @@ const particle = {
         this.data.splice(index, 1);
       }
     })
+    
+    if(this.value < this.data.length){
+      this.data.splice(0, 1);
+    }
+    
   },
 
   // SETTING
-  setParticle: function(shrink) {
+  setParticle: function(value, shrink) {
+    this.value = value;
     this.shrink = shrink;
   }
 
