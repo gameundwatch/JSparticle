@@ -7,15 +7,31 @@ const shape = {
   type: null, // lower than 1 = "circle", 2 or highter = "polygon"
   inset: null,
   rotate: null,
-  color: null,
+  spin: null,
 
-  setShape: function(type, inset, rotate, spin, body_color, line_color) {
-    this.type = type;
-    this.inset = inset;
+  // COLOR
+  body_color: null,
+  line_color: null,
+
+  // SHADOW
+  shadow_x: null,
+  shadow_y: null,
+  shadow_blur: null,
+  shadow_color: null,
+
+  setShape: function(type, inset, rotate, spin, bodyColor, lineColor, shadowX, shadowY, shadowBlur, shadowColor) {
+    this.type   = type;
+    this.inset  = inset;
     this.rotate = rotate;
-    this.spin = spin;
-    this.body_color = body_color;
-    this.line_color = line_color;
+    this.spin   = spin;
+
+    this.body_color = bodyColor;
+    this.line_color = lineColor;
+
+    this.shadow_x     = shadowX;
+    this.shadow_y     = shadowY;
+    this.shadow_blur  = shadowBlur;
+    this.shadow_color = shadowColor;
   },
 
   drawShape: function(x, y, radius) {
@@ -40,8 +56,15 @@ const shape = {
     }
     ctx.restore();
     ctx.closePath();
+
     ctx.strokeStyle = this.line_color;
     ctx.fillStyle = this.body_color;
+    
+    ctx.shadowOffSetX = this.shadow_x;
+    ctx.shadowOffSetY = this.shadow_y;
+    ctx.shadowBlur    = this.shadow_blur;
+    ctx.shadowColor   = this.shadow_color;
+
     ctx.stroke();
     ctx.fill();
 
