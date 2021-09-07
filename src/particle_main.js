@@ -7,15 +7,16 @@ canvas.width = window.innerWidth;
 var emitterX = null;
 var emitterY = null;
 var togglefire = false;
-var hue = 0; // color test
 var counter = 0;
 
 const SPEED = 1;          // particle speed
-const SIZE = 5;           // particle size
+const SIZE = 50;           // particle size
 const MAXLIFE = 2000;     // particle max life
 const SHRINK = 1;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
 const ACCEL = 1;          // particle acceleration curve.
-const COLOR = "orange";
+const SHAPE_TYPE = 6;
+const SHAPE_INSET = 0.5;
+const SHAPE_COLOR = "orange";
 
 // get RandomInt function
 function getRandomInt(max) {
@@ -26,30 +27,6 @@ function getRandomInt(max) {
 
 function getDistanceFrom(x,y,fromX,fromY) { 
     return Math.sqrt( Math.pow(x-fromX, 2) + Math.pow(y-fromY, 2) );
-}
-
-//============================================
-// SHAPE
-//============================================
-
-const shape = {
-
-  type: null, // lower than 1 = "circle", 2 or highter = "polygon"
-  color: null,
-
-  setShape: function(type, color) {
-    this.type = type;
-    this.color = color;
-  },
-
-  drawShape: function(x, y, size) {
-    ctx.beginPath();
-    if(this.type == 1){
-      ctx.arc(x, y, size, 0, 2 * Math.PI, true);
-    }
-    ctx.fillStyle = this.color;
-    ctx.fill();
-  }
 }
 
 //============================================
@@ -124,7 +101,7 @@ const init = () => {
   emitterX = canvas.width / 2;
   emitterY = canvas.height / 2;
 
-  particle.shape.setShape(1, "green");
+  particle.shape.setShape(SHAPE_TYPE, SHAPE_INSET, SHAPE_COLOR);
 
 }
 
