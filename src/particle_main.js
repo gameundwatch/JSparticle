@@ -9,11 +9,11 @@ var emitterY = null;
 var togglefire = false;
 var counter = 0;
 
-const PART_SPEED = 4;          // particle speed
-const PART_MAXVALUE = 200;
-const PART_SIZE = 20;          // particle size
-const PART_LIFE = 2000;     // particle max life
-const PART_SHRINK = 0.2;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
+const PART_SPEED = 0.5;          // particle speed
+const PART_MAXVALUE = 1000;
+const PART_SIZE = 5;          // particle size
+const PART_LIFE = 200;     // particle max life
+const PART_SHRINK = 0.01;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
 
 //============================================
 // SHAPE SETTINGS
@@ -24,15 +24,15 @@ const SHAPE_INSET = 1;              // inside verticle to make star shape. 1 is 
 const SHAPE_DEFAULT_ROTATE = 90;    // default shape degree
 const SHAPE_SPIN_SPEED = 4;         // negative value ... clockwise rotation.
 
-const SHAPE_BODY_COLOR = "#dd4411";
-const SHAPE_BODY_ALPHA = 0.2;
-const SHAPE_LINE_COLOR = "#8822EE";
+const SHAPE_BODY_COLOR = "white";
+const SHAPE_BODY_ALPHA = 0;
+const SHAPE_LINE_COLOR = "#11BBEE";
 const SHAPE_LINE_ALPHA = 0.8;
 
 const SHAPE_SHADOW_OFFSET_X = 0;
 const SHAPE_SHADOW_OFFSET_Y = 0;
-const SHAPE_SHADOW_BLUR = 10;
-const SHAPE_SHADOW_COLOR = "#4400DD";
+const SHAPE_SHADOW_BLUR = 2;
+const SHAPE_SHADOW_COLOR = "#008844";
 
 //============================================
 // MOTION SETTINGS
@@ -40,7 +40,7 @@ const SHAPE_SHADOW_COLOR = "#4400DD";
 
 const MOTION_ACCEL = 1;         // particle acceleration curve.
 
-const MOTION_FORCE_DEG = -90;         //   
+const MOTION_FORCE_DEGREE = -90;
 const MOTION_FORCE_POWER = 0.01;
 
 //============================================
@@ -87,7 +87,12 @@ const init = () => {
     PART_SHRINK
   );
 
-  force.forceDirection ( MOTION_FORCE_DEG, MOTION_FORCE_POWER );
+  force.setForce ( 
+    MOTION_FORCE_DEGREE, 
+    MOTION_FORCE_POWER 
+  );
+  // disperse.disperseDirection ( MOTION_DISPERSE_POWER );
+
 
 }
 
@@ -97,7 +102,7 @@ const init = () => {
 
 const loop = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+  
   if (togglefire) {
     particle.generate(emitterX, emitterY, PART_SPEED, PART_SIZE, PART_LIFE); 
   }
@@ -106,7 +111,7 @@ const loop = () => {
   particle.erase();
 
   particle.draw();
-  // console.log(particle.data);
+  console.log(JSON.parse(JSON.stringify(particle.data)));
 
   window.requestAnimationFrame(loop);
 }

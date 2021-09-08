@@ -9,25 +9,31 @@ function getDistanceFrom(x,y,fromX,fromY) {
     return Math.sqrt( Math.pow(x-fromX, 2) + Math.pow(y-fromY, 2) );
 }
 
-function normalizedX (x,y) {
-  return x / Math.sqrt( Math.pow(x,2) + Math.pow(y,2) );
-}
-
-function normalizedY (x,y) {
-  return y / Math.sqrt( Math.pow(x,2) + Math.pow(y,2) );
-}
 
 //============================================
-// FORCE
+// XOR SHIFT RANDOM GENERATOR
 //============================================
 
-const force = {
-  x: null,
-  y: null,
+const xors = {
+  x: 123456789,
+  y: 390865025,
+  z: 432987525,
+  w: 97545989,
+
+  seed: function(s) {
+    xors.w = s;
+  },
   
-  forceDirection: function( degree, power ) {
-    this.x = power * Math.cos( (degree*Math.PI) /180 );
-    this.y = power * Math.sin( (degree*Math.PI) /180 );
+  rand: function() {
+    var t = xors.x ^ (xors.x << 11);
+    xors.x = xors.y;
+    xors.y = xors.z;
+    xors.z = xors.w;
+    return xors.w = (xors.w^(xors.w>>>19))^(t^(t>>>8));
+  },
+  
+  rand_range: function( max ) {
+    return (xors.rand() % max + max) % max;
   }
 
 }
@@ -45,6 +51,7 @@ const particle = {
   value: null,
   shrink: null,
   shape: shape,
+  force: force,
   maxlife: null,
   life: null,
   data:[],
@@ -61,34 +68,30 @@ const particle = {
 
   // GENERATE
   generate: function(posx, posy, speed, size, life) {
-    this.data.push({
+     this.data.push({
       x: posx,
       y: posy,
       dx: speed*( Math.cos( (getRandomInt(360)*Math.PI) /180 )),
       dy: speed*( Math.sin( (getRandomInt(360)*Math.PI) /180 )),
       shape: shape,
+      force: force,
       size: size,
       maxlife:life,
       life:life
-    })
+    });
+    // console.log(this.data[this.data.length - 1]);
   },
 
   // MOVE
   move: function() {
     this.data.forEach( part =>  {
 
-      const distance = getDistanceFrom(part.x, part.y, emitterX, emitterY);
-
-      // part.dx = normalizedX( part.dx + force.x, part.dy + force.y );
-      // part.dy = normalizedY( part.dx + force.x, part.dy + force.y );
-
-      part.dx += force.x;
-      part.dy += force.y;
+      part.dx += part.force.forceX();
+      part.dy += part.force.forceY();
 
       part.x += part.dx;
       part.y += part.dy;
 
-      // console.log(normalizedY(0+force.x, 1 + force.y));
       part.size *= Math.pow(part.life/part.maxlife, this.shrink);
 
     })
