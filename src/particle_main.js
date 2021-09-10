@@ -1,15 +1,18 @@
-const canvas = document.getElementById('canvas1');
+const canvas = document.getElementById('viewer');
 const ctx = canvas.getContext('2d');
 
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
+// canvas.width = window.innerWidth;
+
+canvas.height = 720;
+canvas.width = 1280;
 
 var emitterX = null;
 var emitterY = null;
 var togglefire = false;
 var counter = 0;
 
-const PART_SPEED = 0.5;          // particle speed
+const PART_SPEED = 1;          // particle speed
 const PART_MAXVALUE = 1000;
 const PART_SIZE = 5;          // particle size
 const PART_LIFE = 200;     // particle max life
@@ -101,6 +104,7 @@ const init = () => {
 //============================================
 
 const loop = () => {
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
   if (togglefire) {
@@ -122,8 +126,9 @@ init();
 loop();
 
 document.addEventListener('mousemove', function(e) {
-  emitterX = e.x;
-  emitterY = e.y;
+  var rect = canvas.getBoundingClientRect();
+  emitterX = e.x - rect.left;
+  emitterY = e.y - rect.top;
 });
 
 document.addEventListener('mousedown', function(e) {

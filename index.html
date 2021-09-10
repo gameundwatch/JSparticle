@@ -8,8 +8,20 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <canvas id="canvas1"></canvas>
-    
+    <div class="wrapper">
+      <div class="main">
+        <canvas id="viewer"></canvas>
+      </div>
+      <div class="menu">
+        <h3>SETTING</h3>
+        🐢<input id ="PART_SPEED" type="range" name="Particle Speed" min="0" max="2" step="0.01">🐰<span id="current-value"></span><br>
+        🐢<input id ="PART_MAXVALUE" type="range" name="Particle Value" min="0" max="400">🐰<br>
+      </div>
+    </article>
+
+    <!-- GUI SCRIPTS -->
+    <script src="src/gui.js"></script>
+    <!-- PARTICLE SCRIPTS -->
     <script src= "src/particle_shape.js"></script>
     <script src= "src/particle_motion.js"></script>
     <script src= "src/particle_body.js"></script>
