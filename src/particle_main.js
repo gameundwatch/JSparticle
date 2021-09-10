@@ -12,7 +12,7 @@ var emitterY = null;
 var togglefire = false;
 var counter = 0;
 
-const PART_SPEED = 1;          // particle speed
+// const PART_SPEED = 1;          // particle speed
 const PART_MAXVALUE = 1000;
 const PART_SIZE = 5;          // particle size
 const PART_LIFE = 200;     // particle max life
@@ -94,8 +94,6 @@ const init = () => {
     MOTION_FORCE_DEGREE, 
     MOTION_FORCE_POWER 
   );
-  // disperse.disperseDirection ( MOTION_DISPERSE_POWER );
-
 
 }
 
@@ -105,25 +103,38 @@ const init = () => {
 
 const loop = () => {
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
+  ctx.clearRect(0, 0, canvas.width, canvas.height);  
   if (togglefire) {
-    particle.generate(emitterX, emitterY, PART_SPEED, PART_SIZE, PART_LIFE); 
+    particle.generate(emitterX, emitterY, inputs.PART_SPEED.value, PART_SIZE, PART_LIFE); 
   }
 
   particle.move();
   particle.erase();
 
   particle.draw();
-  console.log(JSON.parse(JSON.stringify(particle.data)));
 
+  // console.log(JSON.parse(JSON.stringify(particle.data)));
   window.requestAnimationFrame(loop);
 }
 
-
-
 init();
 loop();
+
+// WINDOW IS LOADED
+
+window.onload = () => {
+
+  
+  inputs.PART_SPEED.addEventListener('input', rangeOnChange); // スライダー変化時にイベントを発火
+  setCurrentValue(inputs.PART_SPEED.value); // ページ読み込み時に値をセット
+}
+
+// EVENTS
+
+// inputイベント時に値をセットする関数
+const rangeOnChange = (e) =>{
+  setCurrentValue(e.target.value);
+}
 
 document.addEventListener('mousemove', function(e) {
   var rect = canvas.getBoundingClientRect();
