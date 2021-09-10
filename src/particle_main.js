@@ -71,8 +71,6 @@ const init = () => {
   emitterX = canvas.width / 2;
   emitterY = canvas.height / 2;
 
-  console.log(inputs);
-
 }
 
 //============================================
@@ -84,8 +82,8 @@ const loop = () => {
   particle.shape.setShape (
     inputs.SHAPE_TYPE.value, 
     inputs.SHAPE_INSET.value, 
-    inputs.SHAPE_DEFAULT_ROTATE.value,
-    inputs.SHAPE_SPIN_SPEED.value,
+    Number(inputs.SHAPE_DEFAULT_ROTATE.value),
+    Number(inputs.SHAPE_SPIN_SPEED.value),
 
     inputs.SHAPE_BODY_COLOR.value,
     inputs.SHAPE_BODY_ALPHA.value,
@@ -114,6 +112,7 @@ const loop = () => {
   }
 
   particle.move();
+  particle.transform();
   particle.erase();
 
   particle.draw();

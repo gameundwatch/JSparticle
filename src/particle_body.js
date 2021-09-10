@@ -63,7 +63,6 @@ const particle = {
         part.shape.drawShape(part.x, part.y, part.size);
       }
     })
-    this.shape.spinningShape();
   },
 
   // GENERATE
@@ -94,6 +93,12 @@ const particle = {
 
       part.size *= Math.pow(part.life/part.maxlife, this.shrink);
 
+    })
+  },
+
+  transform: function() {
+    this.data.forEach( part =>  {
+      part.shape.spinning();
     })
   },
 

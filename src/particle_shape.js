@@ -80,8 +80,12 @@ const shape = {
 
   },
 
-  spinningShape: function() {
+  spinning: function() {
+    console.log(this);
     this.rotate += this.spin;
+    if(this.rotate >= 360){
+      this.rotate %= 360;
+    }
   }
 
 }
