@@ -12,7 +12,8 @@ var emitterY = null;
 var togglefire = false;
 var counter = 0;
 
-// const PART_SPEED = 1;          // particle speed
+/*
+const PART_SPEED = 1;          // particle speed
 const PART_MAXVALUE = 1000;
 const PART_SIZE = 5;          // particle size
 const PART_LIFE = 200;     // particle max life
@@ -46,6 +47,8 @@ const MOTION_ACCEL = 1;         // particle acceleration curve.
 const MOTION_FORCE_DEGREE = -90;
 const MOTION_FORCE_POWER = 0.01;
 
+*/
+
 //============================================
 // LOAD PARTICLE SYSTEM
 //============================================
@@ -68,32 +71,7 @@ const init = () => {
   emitterX = canvas.width / 2;
   emitterY = canvas.height / 2;
 
-  particle.shape.setShape(
-    SHAPE_TYPE, 
-    SHAPE_INSET, 
-    SHAPE_DEFAULT_ROTATE,
-    SHAPE_SPIN_SPEED,
-
-    SHAPE_BODY_COLOR,
-    SHAPE_BODY_ALPHA,
-    SHAPE_LINE_COLOR,
-    SHAPE_LINE_ALPHA,
-
-    SHAPE_SHADOW_OFFSET_X,
-    SHAPE_SHADOW_OFFSET_Y,
-    SHAPE_SHADOW_BLUR,
-    SHAPE_SHADOW_COLOR
-  );
-
-  particle.setParticle (
-    PART_MAXVALUE,
-    PART_SHRINK
-  );
-
-  force.setForce ( 
-    MOTION_FORCE_DEGREE, 
-    MOTION_FORCE_POWER 
-  );
+  console.log(inputs);
 
 }
 
@@ -103,9 +81,36 @@ const init = () => {
 
 const loop = () => {
 
+  particle.shape.setShape (
+    inputs.SHAPE_TYPE.value, 
+    inputs.SHAPE_INSET.value, 
+    inputs.SHAPE_DEFAULT_ROTATE.value,
+    inputs.SHAPE_SPIN_SPEED.value,
+
+    inputs.SHAPE_BODY_COLOR.value,
+    inputs.SHAPE_BODY_ALPHA.value,
+    inputs.SHAPE_LINE_COLOR.value,
+    inputs.SHAPE_LINE_ALPHA.value,
+
+    inputs.SHAPE_SHADOW_OFFSET_X.value,
+    inputs.SHAPE_SHADOW_OFFSET_Y.value,
+    inputs.SHAPE_SHADOW_BLUR.value,
+    inputs.SHAPE_SHADOW_COLOR.value
+  );
+
+  particle.setParticle (
+    inputs.PART_MAXVALUE.value,
+    inputs.PART_SHRINK.value
+  );
+
+  force.setForce ( 
+    inputs.MOTION_FORCE_DEGREE, 
+    inputs.MOTION_FORCE_POWER 
+  );
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);  
   if (togglefire) {
-    particle.generate(emitterX, emitterY, inputs.PART_SPEED.value, PART_SIZE, PART_LIFE); 
+    particle.generate(emitterX, emitterY, inputs.PART_SPEED.value, inputs.PART_SIZE.value, inputs.PART_LIFE.value); 
   }
 
   particle.move();
@@ -123,10 +128,11 @@ loop();
 // WINDOW IS LOADED
 
 window.onload = () => {
+  for( let key in inputs ){
+    inputs[key].addEventListener('input', rangeOnChange); // スライダー変化時にイベントを発火
+    setCurrentValue(inputs[key].value); // ページ読み込み時に値をセット
+  }  
 
-  
-  inputs.PART_SPEED.addEventListener('input', rangeOnChange); // スライダー変化時にイベントを発火
-  setCurrentValue(inputs.PART_SPEED.value); // ページ読み込み時に値をセット
 }
 
 // EVENTS
