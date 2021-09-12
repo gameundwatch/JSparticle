@@ -74,10 +74,11 @@ const particle = {
   },
 
   // GENERATE
-  generate: function(posx, posy, speed, size, life) {
+  generate: function(posx, posy, spreadx, spready, speed, size, life) {
+    let degree = xors.rand_range(360);
      this.data.push({
-      x: posx,
-      y: posy,
+      x: posx + Math.cos(degree) * spreadx,
+      y: posy + Math.sin(degree) * spready,
       dx: speed*( Math.cos( (getRandomInt(360)*Math.PI) /180 )),
       dy: speed*( Math.sin( (getRandomInt(360)*Math.PI) /180 )),
       shape: shape,

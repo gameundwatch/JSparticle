@@ -5,6 +5,9 @@ const inputs = {
   // PARTICLE SETTINGS
   //============================================
 
+  PART_SPREAD_X:  document.getElementById('PART_SPREAD_X'),
+  PART_SPREAD_Y:  document.getElementById('PART_SPREAD_Y'),
+  
   PART_SPEED:     document.getElementById('PART_SPEED'),
   PART_MAXVALUE:  document.getElementById('PART_MAXVALUE'),
   PART_SIZE:      document.getElementById('PART_SIZE'),          // particle size

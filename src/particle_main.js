@@ -89,8 +89,16 @@ const loop = () => {
   );
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);  
+
   if (togglefire) {
-    particle.generate(emitterX, emitterY, inputs.PART_SPEED.value, inputs.PART_SIZE.value, inputs.PART_LIFE.value); 
+    particle.generate(
+      emitterX, 
+      emitterY,
+      inputs.PART_SPREAD_X.value,
+      inputs.PART_SPREAD_Y.value,
+      inputs.PART_SPEED.value, 
+      inputs.PART_SIZE.value, 
+      inputs.PART_LIFE.value); 
   }
 
   particle.move();
