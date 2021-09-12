@@ -39,6 +39,14 @@ const xors = {
 }
 
 //============================================
+// ARRAY SPLICE EXTENSION
+//============================================
+
+function SpliceObject(arr, key, value) {
+}
+
+
+//============================================
 // PARTICLE
 //============================================
 const particle = {
@@ -60,7 +68,7 @@ const particle = {
   draw: function() {
     this.data.forEach( part =>  {
       if (part.life >= 0){
-        part.shape.drawShape(part.x, part.y, part.size);
+        part.shape.drawShape(part.x, part.y, part.size, part.life, part.maxlife);
       }
     })
   },
@@ -78,7 +86,6 @@ const particle = {
       maxlife:life,
       life:life
     });
-    // console.log(this.data[this.data.length - 1]);
   },
 
   // MOVE
@@ -96,10 +103,8 @@ const particle = {
     })
   },
 
+  // transform:
   transform: function() {
-    this.data.forEach( part =>  {
-      part.shape.spinning();
-    })
   },
 
   // ERASE

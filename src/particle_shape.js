@@ -7,7 +7,7 @@ const shape = {
 
   type: null, // lower than 1 = "circle", 2 or highter = "polygon"
   inset: null,
-  rotate: null,
+  angle: null,
   spin: null,
 
   // COLOR
@@ -22,10 +22,10 @@ const shape = {
   shadow_blur: null,
   shadow_color: null,
 
-  setShape: function(type, inset, rotate, spin, bodyColor, bodyAlpha, lineColor, lineAlpha, shadowX, shadowY, shadowBlur, shadowColor) {
+  setShape: function(type, inset, angle, spin, bodyColor, bodyAlpha, lineColor, lineAlpha, shadowX, shadowY, shadowBlur, shadowColor) {
     this.type   = type;
     this.inset  = inset;
-    this.rotate = rotate;
+    this.angle  = angle;
     this.spin   = spin;
 
     this.body_color = bodyColor;
@@ -39,7 +39,7 @@ const shape = {
     this.shadow_color = shadowColor;
   },
 
-  drawShape: function(x, y, radius) {
+  drawShape: function(x, y, radius, life, maxlife) {
     ctx.beginPath();
     ctx.save();
     ctx.translate(x, y);
@@ -50,7 +50,7 @@ const shape = {
       ctx.arc(0, 0, radius, 0, 2 * Math.PI, true);
     }
     else {
-      ctx.rotate( this.rotate*Math.PI / 360 )
+      ctx.rotate(( this.angle + this.spin * ( maxlife - life )) * Math.PI / 360 );
       ctx.moveTo(0, -radius);
       for (let i = 0; i < this.type; i++) {
         ctx.rotate(Math.PI / this.type);
@@ -79,13 +79,4 @@ const shape = {
     ctx.fill();
 
   },
-
-  spinning: function() {
-    console.log(this);
-    this.rotate += this.spin;
-    if(this.rotate >= 360){
-      this.rotate %= 360;
-    }
-  }
-
 }

@@ -25,7 +25,7 @@ const PART_SHRINK = 0.01;         // shrink curve. 1 is liner shrink. if it is h
 
 const SHAPE_TYPE = 2;               // shape type : 1 is circle, 2 is line, 3 or higher is polygon. 
 const SHAPE_INSET = 1;              // inside verticle to make star shape. 1 is flat.
-const SHAPE_DEFAULT_ROTATE = 90;    // default shape degree
+const SHAPE_DEFAULT_ANGLE = 90;    // default shape degree
 const SHAPE_SPIN_SPEED = 4;         // negative value ... clockwise rotation.
 
 const SHAPE_BODY_COLOR = "white";
@@ -82,7 +82,7 @@ const loop = () => {
   particle.shape.setShape (
     inputs.SHAPE_TYPE.value, 
     inputs.SHAPE_INSET.value, 
-    Number(inputs.SHAPE_DEFAULT_ROTATE.value),
+    Number(inputs.SHAPE_DEFAULT_ANGLE.value),
     Number(inputs.SHAPE_SPIN_SPEED.value),
 
     inputs.SHAPE_BODY_COLOR.value,
