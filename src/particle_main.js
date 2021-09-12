@@ -12,31 +12,15 @@ var emitterY = null;
 var togglefire = false;
 var counter = 0;
 
-/*
-const PART_SPEED = 1;          // particle speed
-const PART_MAXVALUE = 1000;
-const PART_SIZE = 5;          // particle size
-const PART_LIFE = 200;     // particle max life
-const PART_SHRINK = 0.01;         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
+function isInCanvas (x, y) {
+  if ((0 <= x && x < canvas.width) && (0 <= y && y < canvas.height)) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
 
-//============================================
-// SHAPE SETTINGS
-//============================================
-
-const SHAPE_TYPE = 2;               // shape type : 1 is circle, 2 is line, 3 or higher is polygon. 
-const SHAPE_INSET = 1;              // inside verticle to make star shape. 1 is flat.
-const SHAPE_DEFAULT_ANGLE = 90;    // default shape degree
-const SHAPE_SPIN_SPEED = 4;         // negative value ... clockwise rotation.
-
-const SHAPE_BODY_COLOR = "white";
-const SHAPE_BODY_ALPHA = 0;
-const SHAPE_LINE_COLOR = "#11BBEE";
-const SHAPE_LINE_ALPHA = 0.8;
-
-const SHAPE_SHADOW_OFFSET_X = 0;
-const SHAPE_SHADOW_OFFSET_Y = 0;
-const SHAPE_SHADOW_BLUR = 2;
-const SHAPE_SHADOW_COLOR = "#008844";
 
 //============================================
 // MOTION SETTINGS
@@ -46,8 +30,6 @@ const MOTION_ACCEL = 1;         // particle acceleration curve.
 
 const MOTION_FORCE_DEGREE = -90;
 const MOTION_FORCE_POWER = 0.01;
-
-*/
 
 //============================================
 // LOAD PARTICLE SYSTEM
@@ -148,7 +130,11 @@ document.addEventListener('mousemove', function(e) {
 });
 
 document.addEventListener('mousedown', function(e) {
-  togglefire = true;
+  var rect = canvas.getBoundingClientRect();
+  if (isInCanvas(e.x-rect.left, e.y-rect.top))
+    togglefire = true;
+  else
+    togglefire = false;
 });
 
 document.addEventListener('mouseup', function(e) {
