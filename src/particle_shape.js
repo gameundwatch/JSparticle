@@ -70,8 +70,6 @@ const shape = {
     let trueLineAlpha = this.line_alpha * Math.min(fadeInAlpha, fadeOutAlpha, 1);
     let trueBodyAlpha = this.body_alpha * Math.min(fadeInAlpha, fadeOutAlpha, 1);
 
-    console.log(fadeInFactor);
-
     // DRAW Process
 
     ctx.beginPath();
