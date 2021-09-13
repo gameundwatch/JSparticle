@@ -80,7 +80,12 @@ const loop = () => {
 
   particle.setParticle (
     inputs.PART_MAXVALUE.value,
-    inputs.PART_SHRINK.value
+    inputs.PART_SIZE.value, 
+    inputs.PART_SPEED.value,
+    inputs.PART_WIPEIN_TIME.value,
+    inputs.PART_WIPEIN_CURVE.value,
+    inputs.PART_WIPEOUT_TIME.value,
+    inputs.PART_WIPEOUT_CURVE.value
   );
 
   force.setForce ( 
@@ -96,13 +101,12 @@ const loop = () => {
       emitterY,
       inputs.PART_SPREAD_X.value,
       inputs.PART_SPREAD_Y.value,
-      inputs.PART_SPEED.value, 
-      inputs.PART_SIZE.value, 
-      inputs.PART_LIFE.value); 
+      inputs.PART_LIFE.value
+    ); 
   }
 
   particle.move();
-  particle.transform();
+  particle.resize();
   particle.erase();
 
   particle.draw();

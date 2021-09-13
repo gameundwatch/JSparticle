@@ -39,14 +39,6 @@ const xors = {
 }
 
 //============================================
-// ARRAY SPLICE EXTENSION
-//============================================
-
-function SpliceObject(arr, key, value) {
-}
-
-
-//============================================
 // PARTICLE
 //============================================
 const particle = {
@@ -55,13 +47,17 @@ const particle = {
   y: null,
   dx: null,
   dy: null,
-  size: null,
-  value: null,
-  shrink: null,
-  shape: shape,
-  force: force,
   maxlife: null,
   life: null,
+  value: null,
+  size: null,
+  wipeInTime: null,
+  wipeInCurve: null,
+  wipeOutTime: null,
+  wipeOutCurve: null,
+  speed: null,
+  shape: shape,
+  force: force,
   data:[],
 
   // DRAW
@@ -74,16 +70,16 @@ const particle = {
   },
 
   // GENERATE
-  generate: function(posx, posy, spreadx, spready, speed, size, life) {
+  generate: function(posx, posy, spreadx, spready, life) {
     let degree = xors.rand_range(360);
      this.data.push({
       x: posx + Math.cos(degree) * spreadx,
       y: posy + Math.sin(degree) * spready,
-      dx: speed*( Math.cos( (getRandomInt(360)*Math.PI) /180 )),
-      dy: speed*( Math.sin( (getRandomInt(360)*Math.PI) /180 )),
+      dx: this.speed*( Math.cos( (getRandomInt(360)*Math.PI) /180 )),
+      dy: this.speed*( Math.sin( (getRandomInt(360)*Math.PI) /180 )),
       shape: shape,
       force: force,
-      size: size,
+      size: this.size,
       maxlife:life,
       life:life
     });
@@ -92,20 +88,32 @@ const particle = {
   // MOVE
   move: function() {
     this.data.forEach( part =>  {
-
       part.dx += part.force.forceX();
       part.dy += part.force.forceY();
 
       part.x += part.dx;
       part.y += part.dy;
-
-      part.size *= Math.pow(part.life/part.maxlife, this.shrink);
-
     })
   },
 
-  // transform:
-  transform: function() {
+
+  resize: function () {
+    // lifeはParticle生成時にMaxlifeと同値で定義され、そこから１フレームごとに減算される。
+    // そのため0からMaxlifeの順に時間を進めるのではなく、Maxlifeから0へと時間が進む。 
+
+    this.data.forEach( part =>  {
+
+      let wipeInStartTime = part.maxlife;
+      let wipeInEndTime = part.maxlife - part.maxlife * this.wipeInTime;
+   
+      let wipeOutStartTime = part.maxlife * this.wipeOutTime;
+      let wipeOutEndTime = 0;
+
+      let wipeInSize = this.size * (wipeInStartTime - part.life) * ( 1 / (wipeInStartTime - wipeInEndTime));
+      let wipeOutSize = this.size * part.life * ( 1 / (wipeOutStartTime - wipeOutEndTime) );
+
+      part.size = Math.min( this.size, wipeInSize, wipeOutSize );
+    })
   },
 
   // ERASE
@@ -124,9 +132,14 @@ const particle = {
   },
 
   // SETTING
-  setParticle: function(value, shrink) {
+  setParticle: function(value, size, speed, wipeInTime, wipeInCurve, wipeOutTime, wipeOutCurve) {
     this.value = value;
-    this.shrink = shrink;
+    this.size = size;
+    this.speed = speed;
+    this.wipeInTime = wipeInTime;
+    this.wipeInCurve = wipeInCurve;
+    this.wipeOutTime = wipeOutTime;
+    this.wipeOutCurve = wipeOutCurve;
   }
 
 }
