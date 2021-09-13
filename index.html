@@ -22,11 +22,16 @@
         Particle Value  : <input id ="PART_MAXVALUE" type="range" name="Particle Value" min="0" max="800" step="1" ><br>
         Particle Life   : <input id ="PART_LIFE" type="range" name="Particle Life" min="0" max="2000" step="1" ><br>
         <br>
-        Particle Size   : <input id ="PART_SIZE" type="range" name="Particle Size" min="0" max="200" step="1" ><br>
-        Particle WipeIn Time : <input id ="PART_WIPEIN_TIME" type="range" name="Particle WipeIn Time" min="0" max="1" step="0.01" ><br>
-        Particle WipeIn Curve : <input id ="PART_WIPEIN_CURVE" type="range" name="Particle WipeIn Curve" min="0" max="2" step="0.01" ><br>
-        Particle WipeOut Time : <input id ="PART_WIPEOUT_TIME" type="range" name="Particle WipeOut Time" min="0" max="1" step="0.01" ><br>
-        Particle WipeOut Curve : <input id ="PART_WIPEOUT_CURVE" type="range" name="Particle WipeOut Curve" min="0" max="2" step="0.01" ><br>
+        Particle Size           : <input id ="PART_SIZE" type="range" name="Particle Size" min="0" max="200" step="1" ><br>
+        Particle WipeIn Time    : <input id ="PART_WIPEIN_TIME" type="range" name="Particle WipeIn Time" min="0" max="1" step="0.01" ><br>
+        Particle WipeIn Curve   : <input id ="PART_WIPEIN_CURVE" type="range" name="Particle WipeIn Curve" min="-1" max="1" step="0.01" ><br>
+        Particle WipeOut Time   : <input id ="PART_WIPEOUT_TIME" type="range" name="Particle WipeOut Time" min="0" max="1" step="0.01" ><br>
+        Particle WipeOut Curve  : <input id ="PART_WIPEOUT_CURVE" type="range" name="Particle WipeOut Curve" min="-1" max="1" step="0.01" ><br>
+        <br>
+        Particle Fadein Time    : <input id ="PART_FADEIN_TIME" type="range" name="Particle FadeIn Time" min="0" max="1" step="0.01" ><br>
+        Particle Fadein Curve   : <input id ="PART_FADEIN_CURVE" type="range" name="Particle FadeIn Curve" min="-1" max="1" step="0.01" ><br>
+        Particle FadeOut Time   : <input id ="PART_FADEOUT_TIME" type="range" name="Particle FadeOut Time" min="0" max="1" step="0.01" ><br>
+        Particle FadeOut Curve  : <input id ="PART_FADEOUT_CURVE" type="range" name="Particle FadeOut Curve" min="-1" max="1" step="0.01" ><br>
 
         <h5>Particle Shape</h5>
         Shape Type       : <input id ="SHAPE_TYPE" type="range" name="Shape Type" min="1" max="8" step="1" ><br>
@@ -40,6 +45,7 @@
         <br>
         Shape Line Color : <input id ="SHAPE_LINE_COLOR" type="color" name="Shape Line Color" ><br>
         Shape Line Alpha : <input id ="SHAPE_LINE_ALPHA" type="range" name="Shape Line Alpha" min="0" max="1"step="0.01"><br>
+
         <h5>Shape Shadow</h5>
         Shape Shadow Offset X : <input id ="SHAPE_SHADOW_OFFSET_X" type="range" name="Shape Shadow OffsetX" min="0" max="8" step="0.1" ><br>
         Shape Shadow Offset Y : <input id ="SHAPE_SHADOW_OFFSET_Y" type="range" name="Shape Shadow OffsetY" min="0" max="8"step="0.1" ><br>
@@ -50,6 +56,8 @@
       </div>
     </article>
 
+    <!-- FUNCTIONS -->
+    <script src="src/functions.js"></script>
     <!-- GUI SCRIPTS -->
     <script src="src/gui.js"></script>
     <!-- PARTICLE SCRIPTS -->

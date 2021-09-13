@@ -10,6 +10,12 @@ const shape = {
   angle: null,
   spin: null,
 
+  // fade
+  fadeInTime: null,
+  fadeInCurve: null,
+  fadeOutTime: null,
+  fadeOutCurve: null,
+
   // COLOR
   body_color: null,
   body_alpha: null,
@@ -22,11 +28,16 @@ const shape = {
   shadow_blur: null,
   shadow_color: null,
 
-  setShape: function(type, inset, angle, spin, bodyColor, bodyAlpha, lineColor, lineAlpha, shadowX, shadowY, shadowBlur, shadowColor) {
+  setShape: function(type, inset, angle, spin, fadeInTime, fadeInCurve, fadeOutTime, fadeOutCurve, bodyColor, bodyAlpha, lineColor, lineAlpha, shadowX, shadowY, shadowBlur, shadowColor) {
     this.type   = type;
     this.inset  = inset;
     this.angle  = angle;
     this.spin   = spin;
+
+    this.fadeInTime = fadeInTime;
+    this.fadeInCurve = fadeInCurve;
+    this.fadeOutTime = fadeOutTime;
+    this.fadeOutCurve = fadeOutCurve;
 
     this.body_color = bodyColor;
     this.body_alpha = bodyAlpha;
@@ -40,6 +51,29 @@ const shape = {
   },
 
   drawShape: function(x, y, radius, life, maxlife) {
+    let currentStep = maxlife - life;
+
+    // FADING Process
+
+    let fadeInStartTime = maxlife;
+    let fadeInEndTime = maxlife - maxlife * this.fadeInTime;
+ 
+    let fadeOutStartTime = maxlife * this.fadeOutTime;
+    let fadeOutEndTime = 0;
+
+    let fadeInFactor  = (fadeInStartTime - life) / (fadeInStartTime - fadeInEndTime);
+    let fadeOutFactor = life  / (fadeOutStartTime - fadeOutEndTime);
+
+    let fadeInAlpha = Math.pow(fadeInFactor, getTrueCurve(this.fadeInCurve) );
+    let fadeOutAlpha = Math.pow(fadeOutFactor, getTrueCurve(this.fadeOutCurve) );
+
+    let trueLineAlpha = this.line_alpha * Math.min(fadeInAlpha, fadeOutAlpha, 1);
+    let trueBodyAlpha = this.body_alpha * Math.min(fadeInAlpha, fadeOutAlpha, 1);
+
+    console.log(fadeInFactor);
+
+    // DRAW Process
+
     ctx.beginPath();
     ctx.save();
     ctx.translate(x, y);
@@ -50,7 +84,7 @@ const shape = {
       ctx.arc(0, 0, radius, 0, 2 * Math.PI, true);
     }
     else {
-      ctx.rotate(( this.angle + this.spin * ( maxlife - life )) * Math.PI / 360 );
+      ctx.rotate(( this.angle + this.spin * currentStep ) * Math.PI / 360 );
       ctx.moveTo(0, -radius);
       for (let i = 0; i < this.type; i++) {
         ctx.rotate(Math.PI / this.type);
@@ -69,12 +103,12 @@ const shape = {
     ctx.shadowColor   = this.shadow_color;
 
     // line drawing
-    ctx.globalAlpha = this.line_alpha;
+    ctx.globalAlpha = trueLineAlpha;
     ctx.strokeStyle = this.line_color;
     ctx.stroke();
 
     // body drawing
-    ctx.globalAlpha = this.body_alpha;
+    ctx.globalAlpha = trueBodyAlpha;
     ctx.fillStyle = this.body_color;
     ctx.fill();
 

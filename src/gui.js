@@ -16,9 +16,14 @@ const inputs = {
   PART_SIZE:      document.getElementById('PART_SIZE'),          // particle size
 
   PART_WIPEIN_TIME:    document.getElementById('PART_WIPEIN_TIME'),
-  PART_WIPEIN_CURVE:    document.getElementById('PART_WIPEIN_CURVE'),         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
+  PART_WIPEIN_CURVE:    document.getElementById('PART_WIPEIN_CURVE'),        
   PART_WIPEOUT_TIME:    document.getElementById('PART_WIPEOUT_TIME'),
-  PART_WIPEOUT_CURVE:    document.getElementById('PART_WIPEOUT_CURVE'),         // shrink curve. 1 is liner shrink. if it is higher than 1, shrinking speed is faster. if it is lower, slower. if 0, stable particle.
+  PART_WIPEOUT_CURVE:    document.getElementById('PART_WIPEOUT_CURVE'),       
+
+  PART_FADEIN_TIME:    document.getElementById('PART_FADEIN_TIME'),
+  PART_FADEIN_CURVE:    document.getElementById('PART_FADEIN_CURVE'),         
+  PART_FADEOUT_TIME:    document.getElementById('PART_FADEOUT_TIME'),
+  PART_FADEOUT_CURVE:    document.getElementById('PART_FADEOUT_CURVE'),         
 
   //============================================
   // SHAPE SETTINGS

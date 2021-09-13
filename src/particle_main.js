@@ -67,6 +67,11 @@ const loop = () => {
     Number(inputs.SHAPE_DEFAULT_ANGLE.value),
     Number(inputs.SHAPE_SPIN_SPEED.value),
 
+    inputs.PART_FADEIN_TIME.value,
+    inputs.PART_FADEIN_CURVE.value,
+    inputs.PART_FADEOUT_TIME.value,
+    inputs.PART_FADEOUT_CURVE.value,
+
     inputs.SHAPE_BODY_COLOR.value,
     inputs.SHAPE_BODY_ALPHA.value,
     inputs.SHAPE_LINE_COLOR.value,
