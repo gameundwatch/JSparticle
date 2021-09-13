@@ -1,11 +1,10 @@
 * {
-
   box-sizing: border-box;
 }
 
 body {
   background: #444444;
-  overflow: hidden;
+
 }
 
 #viewer {
