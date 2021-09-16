@@ -15,16 +15,14 @@ const force = {
     this.power = power;
   },
 
-  forceX: function() {
+  forceX: function(life, maxlife) {
 
-
-    return this.power * Math.cos( ( this.angle *Math.PI) /180 );
+    return this.power * Math.cos( ( foldIn360(this.angle + xors.rand_range(this.delta)) *Math.PI) /180 );
   },
 
-  forceY: function() {
+  forceY: function(life, maxlife) {
 
-    
-    return this.power * Math.sin( ( this.angle *Math.PI) /180 );
-  }
+    return this.power * Math.sin( ( foldIn360(this.angle + xors.rand_range(this.delta)) *Math.PI) /180 );
+  },
 
 }

@@ -14,6 +14,16 @@ function getTrueCurve (x) {
   return Math.tanh(x) + 1;
 }
 
+// fold
+function foldIn360 (value) {
+  if (value >= 360) {
+    return value % 360;
+  } 
+  else {
+    return value;
+  }
+}
+
 //============================================
 // XOR SHIFT RANDOM GENERATOR
 //============================================
@@ -37,7 +47,10 @@ const xors = {
   },
   
   rand_range: function( max ) {
-    return (xors.rand() % max + max) % max;
+    if (max == 0)
+      return 0;
+    else
+      return (xors.rand() % max + max) % max;
   }
 
 }

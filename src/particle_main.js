@@ -94,8 +94,8 @@ const loop = () => {
   );
 
   force.setForce ( 
-    inputs.MOTION_FORCE_ANGLE.value, 
-    inputs.MOTION_FORCE_DELTA.value,
+    Number(inputs.MOTION_FORCE_ANGLE.value), 
+    Number(inputs.MOTION_FORCE_DELTA.value),
     inputs.MOTION_FORCE_POWER.value
   );
 
@@ -117,28 +117,28 @@ const loop = () => {
 
   particle.draw();
 
-  // console.log(JSON.parse(JSON.stringify(particle.data)));
+  console.log(JSON.parse(JSON.stringify(particle.data)));
   window.requestAnimationFrame(loop);
 }
 
 init();
 loop();
 
+// inputイベント時に値をセットする関数
+const rangeOnChange = (e) =>{
+  setCurrentValue(e.target.value);
+}
+
+// EVENTS
 // WINDOW IS LOADED
 
 window.onload = () => {
   for( let key in inputs ){
+    console.log(inputs[key]);
     inputs[key].addEventListener('input', rangeOnChange); // スライダー変化時にイベントを発火
     setCurrentValue(inputs[key].value); // ページ読み込み時に値をセット
   }  
 
-}
-
-// EVENTS
-
-// inputイベント時に値をセットする関数
-const rangeOnChange = (e) =>{
-  setCurrentValue(e.target.value);
 }
 
 document.addEventListener('mousemove', function(e) {

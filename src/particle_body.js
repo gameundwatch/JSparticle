@@ -49,9 +49,9 @@ const particle = {
   // MOVE
   move: function() {
     this.data.forEach( part =>  {
-      
-      part.dx += part.force.forceX();
-      part.dy += part.force.forceY();
+
+      part.dx += part.force.forceX(part.life, part.maxlife);
+      part.dy += part.force.forceY(part.life, part.maxlife);
 
       part.x += part.dx;
       part.y += part.dy;

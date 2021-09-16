@@ -48,14 +48,13 @@ const inputs = {
 // MOTION SETTINGS
 //============================================
 
-MOTION_ACCEL: 1,         // particle acceleration curve.
-
 MOTION_FORCE_ANGLE:       document.getElementById('MOTION_FORCE_ANGLE'),
 MOTION_FORCE_DELTA:       document.getElementById('MOTION_FORCE_DELTA'),
 MOTION_FORCE_POWER:       document.getElementById('MOTION_FORCE_POWER'),
 
+MOTION_ACCEL: 1,         // particle acceleration curve.
+
   getInputValue : function (key) {
-    console.log(this[key].value);
     return this[key].value;
   }
 };
