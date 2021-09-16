@@ -94,8 +94,9 @@ const loop = () => {
   );
 
   force.setForce ( 
-    inputs.MOTION_FORCE_DEGREE, 
-    inputs.MOTION_FORCE_POWER 
+    inputs.MOTION_FORCE_ANGLE.value, 
+    inputs.MOTION_FORCE_DELTA.value,
+    inputs.MOTION_FORCE_POWER.value
   );
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);  

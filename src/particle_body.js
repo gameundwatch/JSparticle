@@ -49,6 +49,7 @@ const particle = {
   // MOVE
   move: function() {
     this.data.forEach( part =>  {
+      
       part.dx += part.force.forceX();
       part.dy += part.force.forceY();
 

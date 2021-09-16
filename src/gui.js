@@ -50,8 +50,9 @@ const inputs = {
 
 MOTION_ACCEL: 1,         // particle acceleration curve.
 
-MOTION_FORCE_DEGREE: -90,
-MOTION_FORCE_POWER: 0.01,
+MOTION_FORCE_ANGLE:       document.getElementById('MOTION_FORCE_ANGLE'),
+MOTION_FORCE_DELTA:       document.getElementById('MOTION_FORCE_DELTA'),
+MOTION_FORCE_POWER:       document.getElementById('MOTION_FORCE_POWER'),
 
   getInputValue : function (key) {
     console.log(this[key].value);
